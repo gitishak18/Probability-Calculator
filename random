@@ -1,0 +1,28 @@
+import random
+
+class Hat:
+    def __init__(self, **balls):
+        self.contents = []
+        for ball, count in balls.items():
+            self.contents += [ball] * count
+            
+    def draw(self, num_balls):
+        if num_balls >= len(self.contents):
+            balls_drawn = self.contents.copy()
+            self.contents.clear()
+            return balls_drawn
+        balls_drawn = random.sample(self.contents, num_balls)
+        for ball in balls_drawn:
+            self.contents.remove(ball)
+        return balls_drawn
+
+def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
+    success_count = 0
+    for i in range(num_experiments):
+        balls_drawn = hat.draw(num_balls_drawn)
+        red_count = balls_drawn.count('red')
+        green_count = balls_drawn.count('green')
+        if red_count >= 1 and green_count >= 2:
+            success_count += 1
+        hat.contents += balls_drawn  # put the balls back into the hat
+    return success_count / num_experiments
