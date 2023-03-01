@@ -1,0 +1,3 @@
+hat = Hat(blue=5, red=4, green=2)
+probability = experiment(hat, {'red': 1, 'green': 2}, 4, 10000)
+print(probability)
